@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@beenotung/gen-index": "../",
-    "gen-index": "file:.."
+    "@beenotung/gen-index": "../"
   }
 }
