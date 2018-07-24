@@ -59,7 +59,7 @@ async function scanDir(dir) {
       } else if (name.endsWith('.js') && !name.endsWith('.spec.js')) {
         ref = name.replace(/\.js/, '');
       }
-      if (ref) {
+      if (ref && ref != 'index') {
         files.push(path.join(dir, ref));
       }
     }
