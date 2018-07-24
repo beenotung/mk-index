@@ -1,0 +1,29 @@
+{
+  "name": "gen-index",
+  "version": "0.0.0",
+  "description": "Generate index.ts or index.js when building npm package.",
+  "main": "index.js",
+  "bin": {
+    "gen-index": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beenotung/gen-index.git"
+  },
+  "keywords": [
+    "util",
+    "generator",
+    "npm",
+    "index.js",
+    "index.ts"
+  ],
+  "author": "Beeno Tung",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/beenotung/gen-index/issues"
+  },
+  "homepage": "https://github.com/beenotung/gen-index#readme"
+}
