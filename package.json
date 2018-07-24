@@ -1,5 +1,5 @@
 {
-  "name": "gen-index",
+  "name": "@beenotung/gen-index",
   "version": "0.0.0",
   "description": "Generate index.ts or index.js when building npm package.",
   "main": "index.js",
