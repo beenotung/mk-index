@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prebuild": "gen-index",
+    "build": "tsc --outDir dist src/*.ts"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Beeno Tung",
+  "license": "BSD-2-Clause",
   "dependencies": {
     "@beenotung/gen-index": "../"
   }
