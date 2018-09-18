@@ -74,7 +74,7 @@ async function main(dir) {
       name = name.replace(dir, '.');
       return `export * from '${name}';`
     })
-    .join('\n')
+    .join('\n') + '\n'
   ;
   let filename = path.join(dir, 'index.' + ext);
   console.debug('write:', filename);
