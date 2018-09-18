@@ -1,6 +1,6 @@
 {
   "name": "@beenotung/gen-index",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Generate index.ts or index.js when building npm package.",
   "main": "index.js",
   "bin": {
