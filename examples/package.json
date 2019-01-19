@@ -5,12 +5,15 @@
   "main": "index.js",
   "scripts": {
     "prebuild": "gen-index",
-    "build": "tsc --outDir dist src/*.ts"
+    "build": "tsc --outDir dist src/index.ts"
   },
   "keywords": [],
   "author": "Beeno Tung",
   "license": "BSD-2-Clause",
   "dependencies": {
     "@beenotung/gen-index": "../"
+  },
+  "devDependencies": {
+    "typescript": "^3.2.4"
   }
 }

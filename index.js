@@ -72,7 +72,7 @@ async function main(dir) {
   let out = files
     .map(name => {
       name = name.replace(dir, '.');
-      return `export * from '${name}';`
+      return `export * from ${JSON.stringify(name)};`
     })
     .join('\n') + '\n'
   ;
