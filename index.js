@@ -59,7 +59,7 @@ async function scanDir(dir) {
       } else if (name.endsWith('.js') && !name.endsWith('.spec.js')) {
         ref = name.replace(/\.js/, '');
       }
-      if (ref && ref != 'index') {
+      if (ref && ref !== 'index') {
         files.push(dir + '/' + ref);
       }
     }
@@ -71,7 +71,11 @@ async function main(dir) {
   await scanDir(dir);
   let out = files
     .map(name => {
-      name = name.replace(dir, '.');
+      if(name.startsWith(dir+'\\')){
+        name = name.replace(dir+'\\','./')
+      }else{
+        name = name.replace(dir, '.');
+      }
       return `export * from ${JSON.stringify(name)};`
     })
     .join('\n') + '\n'
