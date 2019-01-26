@@ -60,7 +60,7 @@ async function scanDir(dir) {
         ref = name.replace(/\.js/, '');
       }
       if (ref && ref != 'index') {
-        files.push(path.join(dir, ref));
+        files.push(dir + '/' + ref);
       }
     }
   });
