@@ -70,6 +70,7 @@ async function scanDir(dir) {
 async function main(dir) {
   await scanDir(dir);
   let out = files
+    .sort()
     .map(name => {
       if(name.startsWith(dir+'\\')){
         name = name.replace(dir+'\\','./')
