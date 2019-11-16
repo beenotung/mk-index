@@ -13,6 +13,10 @@ for (let i = 2; i < process.argv.length;) {
   i++;
   if (param === '--ext') {
     ext = process.argv[i];
+    if (!ext) {
+      console.error(`missing ext after --ext`);
+      process.exit(1);
+    }
     i++;
     continue;
   }
@@ -24,20 +28,21 @@ DIRECTORY is set to be src by default.
 
 Optional Options:
   --ext ts|js
-                 set the file extension,
-                 should be either ts or js.
+                 Set the file extension.
+                 Should be either ts or js.
+                 Default to be ts
 
 Exit status:
  0  if Ok,
  1  if encountered problems.`);
-    process.exit(0)
+    process.exit(0);
   }
   dir = param;
 }
 
 async function isDirectory(path) {
   return new Promise((resolve) =>
-    fs.readdir(path, err => err ? resolve(false) : resolve(true))
+    fs.readdir(path, err => err ? resolve(false) : resolve(true)),
   );
 }
 
@@ -53,10 +58,20 @@ async function scanDir(dir) {
       return scanDir(child);
     } else {
       /* file */
+      if ([
+        '.d.ts',
+        '.spec.ts',
+        '.spec.js',
+        '.macro.ts',
+        '.macro.js',
+      ].some(ext => name.endsWith(ext))) {
+        // skip non-source-code files
+        return;
+      }
       let ref;
-      if (name.endsWith('.ts') && !name.endsWith('.spec.ts') && !name.endsWith('.d.ts')) {
+      if (name.endsWith('.ts')) {
         ref = name.replace(/\.ts$/, '');
-      } else if (name.endsWith('.js') && !name.endsWith('.spec.js')) {
+      } else if (name.endsWith('.js')) {
         ref = name.replace(/\.js/, '');
       }
       if (ref && ref !== 'index') {
@@ -72,12 +87,12 @@ async function main(dir) {
   let out = files
     .sort()
     .map(name => {
-      if(name.startsWith(dir+'\\')){
-        name = name.replace(dir+'\\','./')
-      }else{
+      if (name.startsWith(dir + '\\')) {
+        name = name.replace(dir + '\\', './');
+      } else {
         name = name.replace(dir, '.');
       }
-      return `export * from ${JSON.stringify(name)};`
+      return `export * from ${JSON.stringify(name)};`;
     })
     .join('\n') + '\n'
   ;
