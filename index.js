@@ -8,6 +8,8 @@ let writeFile = util.promisify(fs.writeFile);
 
 let dir = 'src';
 let ext = 'ts';
+let singleQuote = false;
+let semicolon = true;
 for (let i = 2; i < process.argv.length;) {
   let param = process.argv[i];
   i++;
@@ -18,6 +20,22 @@ for (let i = 2; i < process.argv.length;) {
       process.exit(1);
     }
     i++;
+    continue;
+  }
+  if (param === '--single-quote') {
+    singleQuote = true;
+    continue;
+  }
+  if (param === 'double-quote') {
+    singleQuote = false;
+    continue;
+  }
+  if (param === '--semi') {
+    semicolon = true;
+    continue;
+  }
+  if (param === '--no-semi') {
+    semicolon = false;
     continue;
   }
   if (param === '--help') {
@@ -31,6 +49,19 @@ Optional Options:
                  Set the file extension.
                  Should be either ts or js.
                  Default to be ts
+
+  --single-quote
+                 Generate import statement with single quote in string value.
+                 (Default option)
+  --double-quote
+                 Generate import statement with double quote in string value.
+
+  --semi
+                 Generate import statement with tailing semi colon.
+                 (Default option)
+
+  --no-semi
+                 Generate import statement without tailing semi colon.
 
 Exit status:
  0  if Ok,
@@ -92,7 +123,15 @@ async function main(dir) {
       } else {
         name = name.replace(dir, '.');
       }
-      return `export * from ${JSON.stringify(name)};`;
+      let file = JSON.stringify(name);
+      if (singleQuote) {
+        file = file.replace(/"/g, '\'');
+      }
+      let code = `export * from ${file}`;
+      if (semicolon) {
+        code += ';';
+      }
+      return code;
     })
     .join('\n') + '\n'
   ;
