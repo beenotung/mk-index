@@ -9,11 +9,17 @@ let writeFile = util.promisify(fs.writeFile);
 let dir = 'src';
 let ext = 'ts';
 let excludeDirs = [];
+let singleQuote = false;
+let semicolon = true;
 for (let i = 2; i < process.argv.length;) {
   let param = process.argv[i];
   i++;
   if (param === '--ext') {
     ext = process.argv[i];
+    if (!ext) {
+      console.error(`missing ext after --ext`);
+      process.exit(1);
+    }
     i++;
     continue;
   }
@@ -21,6 +27,22 @@ for (let i = 2; i < process.argv.length;) {
     excludeDirs = process.argv[i].split(',')
     i++;
     continue
+  }
+  if (param === '--single-quote') {
+    singleQuote = true;
+    continue;
+  }
+  if (param === 'double-quote') {
+    singleQuote = false;
+    continue;
+  }
+  if (param === '--semi') {
+    semicolon = true;
+    continue;
+  }
+  if (param === '--no-semi') {
+    semicolon = false;
+    continue;
   }
   if (param === '--help') {
     console.log(`Usage: gen-index [OPTION]... [DIRECTORY]
@@ -30,22 +52,37 @@ DIRECTORY is set to be src by default.
 
 Optional Options:
   --ext ts|js
-                 set the file extension,
-                 should be either ts or js.
+                 Set the file extension.
+                 Should be either ts or js.
+                 Default to be ts
+
   --excludeDir dir_1,dir_2,...dir_n
-                 list of directories to skip, e.g. "internal"
+                 List of directories to skip, e.g. "internal"
+
+  --single-quote
+                 Generate import statement with single quote in string value.
+                 (Default option)
+  --double-quote
+                 Generate import statement with double quote in string value.
+
+  --semi
+                 Generate import statement with tailing semi colon.
+                 (Default option)
+
+  --no-semi
+                 Generate import statement without tailing semi colon.
 
 Exit status:
  0  if Ok,
  1  if encountered problems.`);
-    process.exit(0)
+    process.exit(0);
   }
   dir = param;
 }
 
 async function isDirectory(path) {
   return new Promise((resolve) =>
-    fs.readdir(path, err => err ? resolve(false) : resolve(true))
+    fs.readdir(path, err => err ? resolve(false) : resolve(true)),
   );
 }
 
@@ -64,10 +101,20 @@ async function scanDir(dir, name = dir) {
       return scanDir(child, name);
     } else {
       /* file */
+      if ([
+        '.d.ts',
+        '.spec.ts',
+        '.spec.js',
+        '.macro.ts',
+        '.macro.js',
+      ].some(ext => name.endsWith(ext))) {
+        // skip non-source-code files
+        return;
+      }
       let ref;
-      if (name.endsWith('.ts') && !name.endsWith('.spec.ts') && !name.endsWith('.d.ts')) {
+      if (name.endsWith('.ts')) {
         ref = name.replace(/\.ts$/, '');
-      } else if (name.endsWith('.js') && !name.endsWith('.spec.js')) {
+      } else if (name.endsWith('.js')) {
         ref = name.replace(/\.js/, '');
       }
       if (ref && ref !== 'index') {
@@ -83,12 +130,20 @@ async function main(dir) {
   let out = files
     .sort()
     .map(name => {
-      if(name.startsWith(dir+'\\')){
-        name = name.replace(dir+'\\','./')
-      }else{
+      if (name.startsWith(dir + '\\')) {
+        name = name.replace(dir + '\\', './');
+      } else {
         name = name.replace(dir, '.');
       }
-      return `export * from ${JSON.stringify(name)};`
+      let file = JSON.stringify(name);
+      if (singleQuote) {
+        file = file.replace(/"/g, '\'');
+      }
+      let code = `export * from ${file}`;
+      if (semicolon) {
+        code += ';';
+      }
+      return code;
     })
     .join('\n') + '\n'
   ;
