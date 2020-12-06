@@ -24,7 +24,12 @@ for (let i = 2; i < process.argv.length;) {
     continue;
   }
   if (param === '--excludeDir') {
-    excludeDirs = process.argv[i].split(',')
+    let dirs = process.argv[i]
+    if (!dirs) {
+      console.error(`missing dirs after --excludeDir`)
+      process.exit(1)
+    }
+    excludeDirs = dirs.split(',')
     i++;
     continue
   }
