@@ -8,6 +8,7 @@ let writeFile = util.promisify(fs.writeFile);
 
 let dir = 'src';
 let ext = 'ts';
+let excludeDirs = [];
 for (let i = 2; i < process.argv.length;) {
   let param = process.argv[i];
   i++;
@@ -15,6 +16,11 @@ for (let i = 2; i < process.argv.length;) {
     ext = process.argv[i];
     i++;
     continue;
+  }
+  if (param === '--excludeDir') {
+    excludeDirs = process.argv[i].split(',')
+    i++;
+    continue
   }
   if (param === '--help') {
     console.log(`Usage: gen-index [OPTION]... [DIRECTORY]
@@ -26,6 +32,8 @@ Optional Options:
   --ext ts|js
                  set the file extension,
                  should be either ts or js.
+  --excludeDir dir_1,dir_2,...dir_n
+                 list of directories to skip, e.g. "internal"
 
 Exit status:
  0  if Ok,
@@ -43,14 +51,17 @@ async function isDirectory(path) {
 
 let files = [];
 
-async function scanDir(dir) {
+async function scanDir(dir, name = dir) {
+  if (excludeDirs.includes(name)) {
+    return
+  }
   console.debug('scan:', dir);
   let names = await readdir(dir);
   let ps = names.map(async name => {
     let child = path.join(dir, name);
     if (await isDirectory(child)) {
       /* directory */
-      return scanDir(child);
+      return scanDir(child, name);
     } else {
       /* file */
       let ref;

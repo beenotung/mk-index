@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prebuild": "gen-index",
+    "prebuild": "gen-index --excludeDir internal",
     "build": "tsc --outDir dist src/index.ts"
   },
   "keywords": [],

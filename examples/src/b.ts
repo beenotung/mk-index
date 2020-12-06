@@ -1,1 +1,3 @@
-export let b = 'b';
+import {bName} from "./internal/b-name";
+
+export let b = bName
