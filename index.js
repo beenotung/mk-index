@@ -108,6 +108,8 @@ async function scanDir(dir, name = dir) {
       /* file */
       if ([
         '.d.ts',
+        '.test.ts',
+        '.test.js',
         '.spec.ts',
         '.spec.js',
         '.macro.ts',
