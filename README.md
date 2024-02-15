@@ -59,7 +59,7 @@ Below message will be shown when the cli is run with `--help` option
     "build": "tsc --outDir dist src/*.ts"
   },
   "dependencies": {
-    "mk-index": "^1.2.2"
+    "mk-index": "^1.2.3"
   }
 }
 ```
