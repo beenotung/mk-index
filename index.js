@@ -37,7 +37,7 @@ for (let i = 2; i < process.argv.length;) {
     singleQuote = true;
     continue;
   }
-  if (param === 'double-quote') {
+  if (param === '--double-quote') {
     singleQuote = false;
     continue;
   }
