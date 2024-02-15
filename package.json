@@ -4,8 +4,8 @@
   "description": "Generate index.ts or index.js when building npm package.",
   "main": "index.js",
   "bin": {
-    "mk-index": "./index.js",
-    "gen-index": "./index.js"
+    "mk-index": "index.js",
+    "gen-index": "index.js"
   },
   "scripts": {},
   "repository": {
