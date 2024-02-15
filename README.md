@@ -4,7 +4,53 @@
 
 Generate index.ts or index.js when building npm package.
 
-## Example package.json
+## Package Info
+
+package name on npm: `mk-index`
+
+available cli: `gen-index` (alias), `mk-index`
+
+### Package History
+
+This package is renamed from `@beenotung/gen-index` to `mk-index` to keep the package name concise.
+
+## Usage
+
+```bash
+mk-index [OPTION]... [DIRECTORY]
+```
+
+DIRECTORY is set to be `src` by default.
+
+### Optional Options
+
+Below message will be shown when the cli is run with `--help` option
+
+```
+--ext ts|js
+               Set the file extension.
+               Should be either ts or js.
+               Default to be ts
+
+--excludeDir dir_1,dir_2,...dir_n
+               List of directories to skip, e.g. "internal"
+
+--single-quote
+               Generate import statement with single quote in string value.
+               (Default option)
+--double-quote
+               Generate import statement with double quote in string value.
+
+--semi
+               Generate import statement with tailing semi colon.
+               (Default option)
+
+--no-semi
+               Generate import statement without tailing semi colon.
+```
+
+### Example package.json
+
 ```json
 {
   "main": "dist/index.js",
