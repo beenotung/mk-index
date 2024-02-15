@@ -1,6 +1,6 @@
 {
   "name": "mk-index",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Generate index.ts or index.js when building npm package.",
   "main": "index.js",
   "bin": {
