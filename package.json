@@ -12,6 +12,12 @@
     "url": "git+https://github.com/beenotung/gen-index.git"
   },
   "keywords": [
+    "gen-index",
+    "generate",
+    "code-generation",
+    "index",
+    "library",
+    "cli",
     "util",
     "generator",
     "npm",
