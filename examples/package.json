@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prebuild": "gen-index --excludeDir internal",
+    "prebuild": "mk-index --excludeDir internal",
     "build": "tsc --outDir dist src/index.ts"
   },
   "keywords": [],
   "author": "Beeno Tung",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "@beenotung/gen-index": "../"
+    "mk-index": "link:.."
   },
   "devDependencies": {
     "typescript": "^3.2.4"

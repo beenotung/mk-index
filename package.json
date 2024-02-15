@@ -1,15 +1,16 @@
 {
-  "name": "@beenotung/gen-index",
+  "name": "mk-index",
   "version": "1.2.1",
   "description": "Generate index.ts or index.js when building npm package.",
   "main": "index.js",
   "bin": {
+    "mk-index": "./index.js",
     "gen-index": "./index.js"
   },
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/beenotung/gen-index.git"
+    "url": "git+https://github.com/beenotung/mk-index.git"
   },
   "keywords": [
     "gen-index",
@@ -31,7 +32,7 @@
   },
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/beenotung/gen-index/issues"
+    "url": "https://github.com/beenotung/mk-index/issues"
   },
-  "homepage": "https://github.com/beenotung/gen-index#readme"
+  "homepage": "https://github.com/beenotung/mk-index#readme"
 }

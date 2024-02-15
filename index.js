@@ -50,7 +50,7 @@ for (let i = 2; i < process.argv.length;) {
     continue;
   }
   if (param === '--help') {
-    console.log(`Usage: gen-index [OPTION]... [DIRECTORY]
+    console.log(`Usage: mk-index [OPTION]... [DIRECTORY]
 Generate index.ts or index.js when building npm package.
 
 DIRECTORY is set to be src by default.

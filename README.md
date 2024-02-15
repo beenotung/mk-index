@@ -1,5 +1,6 @@
-# gen-index
-[![npm Package Version](https://img.shields.io/npm/v/@beenotung/gen-index.svg?maxAge=2592000)](https://www.npmjs.com/package/@beenotung/gen-index)
+# mk-index
+
+[![npm Package Version](https://img.shields.io/npm/v/mk-index.svg?maxAge=2592000)](https://www.npmjs.com/package/mk-index)
 
 Generate index.ts or index.js when building npm package.
 
@@ -8,11 +9,11 @@ Generate index.ts or index.js when building npm package.
 {
   "main": "dist/index.js",
   "scripts": {
-    "prebuild": "gen-index",
+    "prebuild": "mk-index --excludeDir internal",
     "build": "tsc --outDir dist src/*.ts"
   },
   "dependencies": {
-    "@beenotung/gen-index": "../"
+    "mk-index": "^1.2.2"
   }
 }
 ```
